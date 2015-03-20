@@ -72,8 +72,12 @@ var Library = function(libName){
 
 	//need to add a mehtod to books specifically, and call it in this method
 	this.viewAllBooks = function(){
-
+		for (var i = 0; i < this.inventory.length; i++) {
+		console.log("\nTitle: " + this.inventory[i].title + "  Author: " + this.inventory[i].author + "  Genre: " +  this.inventory[i].genre + "  Page Length: " + this.inventory[i].pageLength + "  Status: " + this.inventory[i].status + "\n");
+		console.log("\nGoing through loop\n");
+		}
 	};
+
 
 	this.viewGenreBooks = function(){
 
@@ -94,7 +98,8 @@ var Library = function(libName){
 
 		switch(userChoice){
 			case "1":
-				console.log("I do nothing!");
+				console.log("\nViewing inventory!\n");
+				this.viewAllBooks();
 				this.userMenu();
 				break;
 
@@ -154,12 +159,16 @@ function quit(){
 var detroitLibrary = new Library("Detroit Public Library");
 
 console.log("\n\n___________________________________________\n   Welcome to the library!\n");
+
+var book1 = (new Book("Stranger in a Strange Land", "Robert Heinlein", "Science Fiction", "438", "Checked out"));
+detroitLibrary.inventory.push(book1);
+
 detroitLibrary.userMenu();
 
 
 //add some inventory
 
-var book1 = detroitLibrary.inventory.push(new Book("Stranger in a Strange Land", "Robert Heinlein", "Science Fiction", pageLength, "Checked out"));
+
 
 
 
