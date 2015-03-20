@@ -9,15 +9,15 @@ You've been contracted to write a piece of software for the local library. The s
 - The software should track the library's inventory of books
 - Each book listing should include the title, author, genre (Fiction, Non-Fiction, etc.), length, and checked-in/checked-out status
 - Librarians should be able to:
-a.) add books to the inventory
-b.) remove books from the inventory 
-c.) view a list of all the books in the library
-d.) view a list of all the books in a given genre
-e.) search for a book by title or author
+a.) add books to the inventory  +++
+b.) remove books from the inventory ++++ 
+c.) view a list of all the books in the library  +++
+d.) view a list of all the books in a given genre  +++
+e.) search for a book by title or author  +++
 
 BONUS: This is a library, so books can be checked in and checked out. Librarians should also be able to:
 
-1.) Change the checked-in/checked-out status of a copy of a book
+1.) Change the checked-in/checked-out status of a copy of a book  +++
 2.) Track the name of the person who has checked out a given book and the date when it is due
 3.) Mark a book as overdue
 4.) View a list of checked-in books only
@@ -36,12 +36,16 @@ var Book = function(title, author, genre, pageLength, status){
 	this.viewMe = function(){
 		console.log("Book title: " + title + "  Book author: " + author + "  Book genre: " + genre + "  Book page length: " + pageLength +  "  Book status: " + status);
 	};
-}
 
-
-// b.) remove books from the inventory 
-
-
+	//need to make sure users can only input avaiable and checked out.....
+	this.changeStatus = function(title){
+		if(this.status.toLowerCase() === "available"){
+				this.status = "Checked Out";
+			} else {
+				this.status = "Avaiable";
+			}
+		};
+};
 
 var Library = function(libName){
 	this.libName = libName;
@@ -59,22 +63,24 @@ var Library = function(libName){
 
 		if (queryIndex !== -1) {
 			this.inventory.splice(queryIndex,1);
+			console.log("\nAll right, that book was removed.\n");
 		} else{
+			console.log("\nLooks like there are no books by that title here.  Please make a new choice.\n");
 			return this.removeBook();
 		}
 	};
 
 
 //hmm I am now seeing some refactoring potential here.... if I get to it
+//also there is defintely a way to take spaces out of names so if someone just enters the book name without spaces it still finds the correct book, but don't have time for that now.
 	this.searchThroughBooks = function(myArray, searchTerm, property) {
   		for(var i = 0, len = this.inventory.length; i < len; i++) {
       		if (this.inventory[i][property].toLowerCase() === searchTerm.toLowerCase()){
-      	 	return i;
+      	 		return i;
+  			}
   		}
   		return -1;
-	}
-
-
+	};
 
 	this.viewAllBooks = function(){
 		for (var i = 0; i < this.inventory.length; i++) {
@@ -131,9 +137,27 @@ var Library = function(libName){
 	};
 
 
+	this.changeBookStatus = function(title){
+		var counter = this.inventory.length;
+
+		for (var i = 0; i < this.inventory.length; i++) {
+			if(title.toLowerCase() === this.inventory[i].title.toLowerCase()){
+				console.log("\nThe status of " + this.inventory[i].title + " will be changed from:" + this.inventory[i].status + "\n");
+				this.inventory[i].changeStatus();
+				console.log("This is the new status of the book " + this.inventory[i].title + ": " + this.inventory[i].status + "\n");
+			} else {
+				counter --;
+			}
+		}
+			if(counter === 0){
+				console.log("\nWell, it looks like there are no books by that title at this time!\nPlease check back soon, as we are always rotating our inventory.\nPlease check out some of our other titles in the meantime.\n");
+			}
+	};
+
+
 	//was going to try an object but would rather do something familiar so I know that this function will work.  maybe refactor later if time...
 	this.userMenu = function(){
-		var userChoice = getUserInput("\n\nPlease make your choice below by choosing the number of what you would like to accomplish.\n1.  View inventory\n2.  Add a book\n3.  Remove a book\n4.  Views books by genre\n5.  Search for book by author\n6.  Search for book by title\n7.  Quit\n\n");
+		var userChoice = getUserInput("\n\nPlease make your choice below by choosing the number of what you would like to accomplish.\n1.  View inventory\n2.  Add a book\n3.  Remove a book\n4.  Views books by genre\n5.  Search for book by author\n6.  Search for book by title\n7.  Change status of book\n8.  Quit\n\n");
 
 		switch(userChoice){
 			case "1":
@@ -172,6 +196,11 @@ var Library = function(libName){
 				break;
 
 			case "7":
+				this.changeBookStatus(getUserInput("\nAll right, let's change the status of one of the books.\nWhat is the title of the book that is changing status?\n"));
+				this.userMenu();
+				break;
+
+			case "8":
 				quit();
 				break;
 
@@ -187,7 +216,7 @@ var Library = function(libName){
 
 		};
 	}
-}
+};
 
 
 function getUserInput(message){
