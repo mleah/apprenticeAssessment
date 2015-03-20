@@ -24,14 +24,7 @@ BONUS: This is a library, so books can be checked in and checked out. Librarians
 
 */
 
-
-//Each book listing should include the title, author, genre (Fiction, Non-Fiction, etc.), length, and checked-in/checked-out status
-
-
 var sget = require("sget");
-
-
-
 
 var Book = function(title, author, genre, pageLength, status){
 	this.title = title;
@@ -48,7 +41,6 @@ var Book = function(title, author, genre, pageLength, status){
 
 // b.) remove books from the inventory 
 
-// e.) search for a book by title or author
 
 
 var Library = function(libName){
@@ -61,10 +53,27 @@ var Library = function(libName){
 	};
 
 
-	this.removeBook = function(){
+	this.removeBook = function(entryQuery){
 
+		var queryIndex = this.searchThroughBooks(this.inventory, entryQuery, "title");
 
+		if (queryIndex !== -1) {
+			this.inventory.splice(queryIndex,1);
+		} else{
+			return this.removeBook();
+		}
 	};
+
+
+//hmm I am now seeing some refactoring potential here.... if I get to it
+	this.searchThroughBooks = function(myArray, searchTerm, property) {
+  		for(var i = 0, len = this.inventory.length; i < len; i++) {
+      		if (this.inventory[i][property].toLowerCase() === searchTerm.toLowerCase()){
+      	 	return i;
+  		}
+  		return -1;
+	}
+
 
 
 	this.viewAllBooks = function(){
@@ -73,7 +82,7 @@ var Library = function(libName){
 		}
 	};
 
-
+//these three (genres, titles, authors) are similar and can probably be one method somehow, not sure how to refactor right now but I need to figure this out sometime
 	this.viewGenreBooks = function(genre){
 		var counter = this.inventory.length;
 
@@ -116,7 +125,7 @@ var Library = function(libName){
 			}
 		}
 			if(counter === 0){
-				console.log("\nWell, it looks like there are no books by that authoer at this time!\nPlease check back soon, as we are always rotating our inventory.\nPlease check out some of our other authors in the meantime.\n");
+				console.log("\nWell, it looks like there are no books by that author at this time!\nPlease check back soon, as we are always rotating our inventory.\nPlease check out some of our other authors in the meantime.\n");
 			}
 
 	};
@@ -141,7 +150,7 @@ var Library = function(libName){
 
 
 			case "3":
-				console.log("I do nothing!");
+				this.removeBook(getUserInput("\nLooks like it's time to retire a book.\nPlease enter the title of the one would you like to remove from the inventory: \n"));
 				this.userMenu();
 				break;
 
