@@ -61,9 +61,6 @@ var Library = function(libName){
 	};
 
 
-	};
-
-
 	this.removeBook = function(){
 
 
@@ -94,73 +91,67 @@ var Library = function(libName){
 
 		switch(userChoice){
 			case "1":
-
+				console.log("I do nothing!");
 				this.userMenu();
 				break;
 
 
 			case "2":
-
+				console.log("I do nothing!");
 				this.userMenu();
 				break;
 
 
 			case "3":
-
+				console.log("I do nothing!");
 				this.userMenu();
 				break;
 
 
 			case "4":
-
+				console.log("I do nothing!");
 				this.userMenu();
 				break;
 
 
 			case "5":
-
+				console.log("I do nothing!");
 				this.userMenu();
 				break;
 
 
 			case "6":
-				this.quit();
+				quit();
 				break;
 
 			case "":
-
+				console.log("\nWhoops-looks like nothing was entered.  Please make sure to enter a valid number choice!");
 				this.userMenu();
 				break;
 
 			default:
-
+				console.log("\nPlease make sure to enter a valid number choice!\n");
 				this.userMenu();
 				break;
 
 		};
-
-
-		this.quit = function(){
-			console.log("\n\nThanks for using the Inventory Management System at %s", this.libName);
-			process.exit[0];
-
-		};
-
-
-
 	}
 }
 
 
-function getUserInput(message) {
+function getUserInput(message){
 	return sget(message).trim();
 }
 
-
-
+function quit(){
+	console.log("\nThanks for using the Inventory Management System!");
+	process.exit[0];
+}
 
 var detroitLibrary = new Library("Detroit Public Library");
 
+console.log("\n\n___________________________________________\n   Welcome to the library!\n");
+detroitLibrary.userMenu();
 
 //add some inventory
 
