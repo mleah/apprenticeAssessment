@@ -41,15 +41,13 @@ var Book = function(title, author, genre, pageLength, status){
 	this.status = status;
 
 	this.viewMe = function(){
-		console.log("\nBook title: " + title + "  Book author: " + author + "  Book genre: " + genre + "  Book page length: " + pageLength +  "  Book status: " + status + "\n");
+		console.log("Book title: " + title + "  Book author: " + author + "  Book genre: " + genre + "  Book page length: " + pageLength +  "  Book status: " + status);
 	};
 }
 
 
-//a.) add books to the inventory
 // b.) remove books from the inventory 
-// c.) view a list of all the books in the library
-// d.) view a list of all the books in a given genre
+
 // e.) search for a book by title or author
 
 
@@ -59,7 +57,6 @@ var Library = function(libName){
 	this.inventory = [];
 
 	this.addBook = function(title, author, genre, pageLength, status){  
-		
 		this.inventory.push(new Book(title, author, genre, pageLength, status));
 	};
 
@@ -70,28 +67,57 @@ var Library = function(libName){
 	};
 
 
-	//need to add a mehtod to books specifically, and call it in this method
 	this.viewAllBooks = function(){
 		for (var i = 0; i < this.inventory.length; i++) {
-		console.log("\nTitle: " + this.inventory[i].title + "  Author: " + this.inventory[i].author + "  Genre: " +  this.inventory[i].genre + "  Page Length: " + this.inventory[i].pageLength + "  Status: " + this.inventory[i].status + "\n");
-		console.log("\nGoing through loop\n");
+		console.log("Title: " + this.inventory[i].title + "  Author: " + this.inventory[i].author + "  Genre: " +  this.inventory[i].genre + "  Page Length: " + this.inventory[i].pageLength + "  Status: " + this.inventory[i].status);
 		}
 	};
 
 
 	this.viewGenreBooks = function(genre){
+		var counter = this.inventory.length;
+
 		for (var i = 0; i < this.inventory.length; i++) {
 			if(genre.toLowerCase() === this.inventory[i].genre.toLowerCase()){
 				this.inventory[i].viewMe();
+			} else {
+				counter --;
 			}
 		}
+		if(counter === 0){
+			console.log("\nLooks like there are no books in that genre at this time!\nPlease check back soon, as we are always rotating our inventory.\nPlease check out some of our other titles in the meantime.\n");
+		}
+		
 	};
 
-	this.searchByTitle = function(){
+	this.searchByTitle = function(title){
+		var counter = this.inventory.length;
 
+		for (var i = 0; i < this.inventory.length; i++) {
+			if(title.toLowerCase() === this.inventory[i].title.toLowerCase()){
+				this.inventory[i].viewMe();
+			} else {
+				counter --;
+			}
+		}
+			if(counter === 0){
+				console.log("\nWell, it looks like there are no books by that title at this time!\nPlease check back soon, as we are always rotating our inventory.\nPlease check out some of our other titles in the meantime.\n");
+			}
 	};
 
-	this.searchByAuthor = function(){
+	this.searchByAuthor = function(author){
+		var counter = this.inventory.length;
+
+		for (var i = 0; i < this.inventory.length; i++) {
+			if(author.toLowerCase() === this.inventory[i].author.toLowerCase()){
+				this.inventory[i].viewMe();
+			} else {
+				counter --;
+			}
+		}
+			if(counter === 0){
+				console.log("\nWell, it looks like there are no books by that authoer at this time!\nPlease check back soon, as we are always rotating our inventory.\nPlease check out some of our other authors in the meantime.\n");
+			}
 
 	};
 
@@ -102,7 +128,7 @@ var Library = function(libName){
 
 		switch(userChoice){
 			case "1":
-				console.log("\nViewing inventory!\n");
+				console.log("\nViewing inventory now...\n_________________________________________________________________________________________________________________________");
 				this.viewAllBooks();
 				this.userMenu();
 				break;
@@ -121,18 +147,18 @@ var Library = function(libName){
 
 
 			case "4":
-				this.viewGenreBooks(getUserInput("\nAll right, let's view the books by genre.\n  Please choose a genre."));
+				this.viewGenreBooks(getUserInput("\nAll right, let's view the books in a specific genre.\nPlease choose a genre.\n"));
 				this.userMenu();
 				break;
 
 
 			case "5":
-				console.log("I do nothing!");
+				this.searchByAuthor(getUserInput("\nAll right, let's search for books by a specific author.\nPlease enter the author now: \n"));
 				this.userMenu();
 				break;
 
 			case "6":
-				console.log("I do nothing!");
+				this.searchByTitle(getUserInput("\nAll right, let's search for a book by the title.\nPlease enter the title now: \n"));
 				this.userMenu();
 				break;
 
@@ -167,9 +193,14 @@ function quit(){
 
 var detroitLibrary = new Library("Detroit Public Library");
 
+///add in some current inventory
 
 var book1 = (new Book("Stranger in a Strange Land", "Robert Heinlein", "Science Fiction", "438", "Checked out"));
+var book2 = (new Book("The Moon is a Harsh Mistress", "Robert Heinlein", "Science Fiction", "382", "Checked out"));
+var book3 = (new Book("Jonathan Strage & Mr. Norrell", "Susanna Clarke", "Historical Fantasy", "782", "Available"));
 detroitLibrary.inventory.push(book1);
+detroitLibrary.inventory.push(book2);
+detroitLibrary.inventory.push(book3);
 
 console.log("\n\n___________________________________________\n   Welcome to the library!\n");
 
