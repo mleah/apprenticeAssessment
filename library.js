@@ -41,7 +41,7 @@ var Book = function(title, author, genre, pageLength, status){
 	this.status = status;
 
 	this.viewMe = function(){
-		console.log("\nBook title: " + title + "\nBook author: " + author + "\nBook genre: " + genre + "\nBook page length: " + pageLength +  "\nBook status: " + status + "\n");
+		console.log("\nBook title: " + title + "  Book author: " + author + "  Book genre: " + genre + "  Book page length: " + pageLength +  "  Book status: " + status + "\n");
 	};
 }
 
@@ -79,8 +79,12 @@ var Library = function(libName){
 	};
 
 
-	this.viewGenreBooks = function(){
-
+	this.viewGenreBooks = function(genre){
+		for (var i = 0; i < this.inventory.length; i++) {
+			if(genre.toLowerCase() === this.inventory[i].genre.toLowerCase()){
+				this.inventory[i].viewMe();
+			}
+		}
 	};
 
 	this.searchByTitle = function(){
@@ -94,7 +98,7 @@ var Library = function(libName){
 
 	//was going to try an object but would rather do something familiar so I know that this function will work.  maybe refactor later if time...
 	this.userMenu = function(){
-		var userChoice = getUserInput("\n\nPlease make your choice below by choosing the number of what you would like to accomplish.\n1.  View inventory\n2.  Add a book\n3.  Remove a book\n4.  Search for book by author\n5.  Search for book by genre\n6.  Quit\n\n");
+		var userChoice = getUserInput("\n\nPlease make your choice below by choosing the number of what you would like to accomplish.\n1.  View inventory\n2.  Add a book\n3.  Remove a book\n4.  Views books by genre\n5.  Search for book by author\n6.  Search for book by title\n7.  Quit\n\n");
 
 		switch(userChoice){
 			case "1":
@@ -117,7 +121,7 @@ var Library = function(libName){
 
 
 			case "4":
-				console.log("I do nothing!");
+				this.viewGenreBooks(getUserInput("\nAll right, let's view the books by genre.\n  Please choose a genre."));
 				this.userMenu();
 				break;
 
@@ -127,8 +131,12 @@ var Library = function(libName){
 				this.userMenu();
 				break;
 
-
 			case "6":
+				console.log("I do nothing!");
+				this.userMenu();
+				break;
+
+			case "7":
 				quit();
 				break;
 
@@ -156,23 +164,14 @@ function quit(){
 	process.exit[0];
 }
 
+
 var detroitLibrary = new Library("Detroit Public Library");
 
-console.log("\n\n___________________________________________\n   Welcome to the library!\n");
 
 var book1 = (new Book("Stranger in a Strange Land", "Robert Heinlein", "Science Fiction", "438", "Checked out"));
 detroitLibrary.inventory.push(book1);
 
+console.log("\n\n___________________________________________\n   Welcome to the library!\n");
+
 detroitLibrary.userMenu();
-
-
-//add some inventory
-
-
-
-
-
-
-
-
 
