@@ -40,6 +40,9 @@ var Book = function(title, author, genre, pageLength, status){
 	this.pageLength = pageLength;
 	this.status = status;
 
+	this.viewMe = function(){
+		console.log("\nBook title: " + title + "\nBook author: " + author + "\nBook genre: " + genre + "\nBook page length: " + pageLength +  "\nBook status: " + status + "\n");
+	};
 }
 
 
@@ -55,8 +58,8 @@ var Library = function(libName){
 
 	this.inventory = [];
 
-	this.addBook = function(){  
-		var addingBook = getUserInput("\nPlease ")
+	this.addBook = function(title, author, genre, pageLength, status){  
+		
 		this.inventory.push(new Book(title, author, genre, pageLength, status));
 	};
 
@@ -97,7 +100,7 @@ var Library = function(libName){
 
 
 			case "2":
-				console.log("I do nothing!");
+				this.addBook(getUserInput("\nAdding a new book\nPlease enter the title: \n"), getUserInput("\nPlease enter the author: \n"), getUserInput("\nPlease enter the genre: \n"), getUserInput("\nPlease enter the page length: \n"), getUserInput("\nPlease enter the checked in status: \n"));
 				this.userMenu();
 				break;
 
@@ -153,7 +156,10 @@ var detroitLibrary = new Library("Detroit Public Library");
 console.log("\n\n___________________________________________\n   Welcome to the library!\n");
 detroitLibrary.userMenu();
 
+
 //add some inventory
+
+var book1 = detroitLibrary.inventory.push(new Book("Stranger in a Strange Land", "Robert Heinlein", "Science Fiction", pageLength, "Checked out"));
 
 
 
