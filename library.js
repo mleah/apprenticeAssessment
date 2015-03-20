@@ -50,11 +50,14 @@ var Book = function(title, author, genre, pageLength, status){
 // e.) search for a book by title or author
 
 
-var Library = function(){
+var Library = function(libName){
+	this.libName = libName;
+
 	this.inventory = [];
 
 	this.addBook = function(){  
-		this.inventory.push(new Book());
+		var addingBook = getUserInput("\nPlease ")
+		this.inventory.push(new Book(title, author, genre, pageLength, status));
 	};
 
 
@@ -65,6 +68,7 @@ var Library = function(){
 
 
 	};
+
 
 	//need to add a mehtod to books specifically, and call it in this method
 	this.viewAllBooks = function(){
@@ -83,6 +87,7 @@ var Library = function(){
 
 	};
 
+
 	//was going to try an object but would rather do something familiar so I know that this function will work.  maybe refactor later if time...
 	this.userMenu = function(){
 		var userChoice = getUserInput("\n\nPlease make your choice below by choosing the number of what you would like to accomplish.\n1.  View inventory\n2.  Add a book\n3.  Remove a book\n4.  Search for book by author\n5.  Search for book by genre\n6.  Quit\n\n");
@@ -90,37 +95,59 @@ var Library = function(){
 		switch(userChoice){
 			case "1":
 
+				this.userMenu();
 				break;
+
 
 			case "2":
 
+				this.userMenu();
 				break;
+
 
 			case "3":
 
+				this.userMenu();
 				break;
+
 
 			case "4":
 
+				this.userMenu();
 				break;
+
 
 			case "5":
 
+				this.userMenu();
 				break;
 
-			case "6":
 
+			case "6":
+				this.quit();
 				break;
 
 			case "":
 
+				this.userMenu();
 				break;
 
 			default:
 
+				this.userMenu();
 				break;
 
-		}
+		};
+
+
+		this.quit = function(){
+			console.log("\n\nThanks for using the Inventory Management System at %s", this.libName);
+			process.exit[0];
+
+		};
+
+
+
 	}
 }
 
@@ -130,7 +157,9 @@ function getUserInput(message) {
 }
 
 
-var myLibrary = new Library();
+
+
+var detroitLibrary = new Library("Detroit Public Library");
 
 
 //add some inventory
