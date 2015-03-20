@@ -37,7 +37,7 @@ var Book = function(title, author, genre, pageLength, status){
 	this.title = title;
 	this.author = author;
 	this.genre = genre;
-	this.pagelength = pagelength;
+	this.pageLength = pageLength;
 	this.status = status;
 
 }
@@ -53,7 +53,9 @@ var Book = function(title, author, genre, pageLength, status){
 var Library = function(){
 	this.inventory = [];
 
-	this.addBook = function(){
+	this.addBook = function(){  
+		this.inventory.push(new Book());
+	};
 
 
 	};
@@ -64,6 +66,7 @@ var Library = function(){
 
 	};
 
+	//need to add a mehtod to books specifically, and call it in this method
 	this.viewAllBooks = function(){
 
 	};
@@ -80,14 +83,59 @@ var Library = function(){
 
 	};
 
+	//was going to try an object but would rather do something familiar so I know that this function will work.  maybe refactor later if time...
+	this.userMenu = function(){
+		var userChoice = getUserInput("\n\nPlease make your choice below by choosing the number of what you would like to accomplish.\n1.  View inventory\n2.  Add a book\n3.  Remove a book\n4.  Search for book by author\n5.  Search for book by genre\n6.  Quit\n\n");
+
+		switch(userChoice){
+			case "1":
+
+				break;
+
+			case "2":
+
+				break;
+
+			case "3":
+
+				break;
+
+			case "4":
+
+				break;
+
+			case "5":
+
+				break;
+
+			case "6":
+
+				break;
+
+			case "":
+
+				break;
+
+			default:
+
+				break;
+
+		}
+	}
 }
 
+
+function getUserInput(message) {
+	return sget(message).trim();
+}
 
 
 var myLibrary = new Library();
 
 
 //add some inventory
+
+
 
 
 
