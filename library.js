@@ -27,6 +27,12 @@ BONUS: This is a library, so books can be checked in and checked out. Librarians
 
 //Each book listing should include the title, author, genre (Fiction, Non-Fiction, etc.), length, and checked-in/checked-out status
 
+
+var sget = require("sget");
+
+
+
+
 var Book = function(title, author, genre, pageLength, status){
 	this.title = title;
 	this.author = author;
@@ -34,10 +40,54 @@ var Book = function(title, author, genre, pageLength, status){
 	this.pagelength = pagelength;
 	this.status = status;
 
-	
+}
+
+
+//a.) add books to the inventory
+// b.) remove books from the inventory 
+// c.) view a list of all the books in the library
+// d.) view a list of all the books in a given genre
+// e.) search for a book by title or author
+
+
+var Library = function(){
+	this.inventory = [];
+
+	this.addBook = function(){
+
+
+	};
+
+
+	this.removeBook = function(){
+
+
+	};
+
+	this.viewAllBooks = function(){
+
+	};
+
+	this.viewGenreBooks = function(){
+
+	};
+
+	this.searchByTitle = function(){
+
+	};
+
+	this.searchByAuthor = function(){
+
+	};
 
 }
 
+
+
+var myLibrary = new Library();
+
+
+//add some inventory
 
 
 
